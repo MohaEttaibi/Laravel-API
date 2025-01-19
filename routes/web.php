@@ -2,9 +2,13 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 Route::get('/', function () {
     return view('welcome');
+    // $role = Role::create(['name' => 'admin']); #user
+    // $permission = Permission::creat(['name' => 'admin']) #user
 });
 
 Route::get('/dashboard', function () {

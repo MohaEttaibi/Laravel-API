@@ -1,12 +1,13 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route("auth.login");
     // $role = Role::create(['name' => 'admin']); #user
     // $permission = Permission::creat(['name' => 'admin']) #user
 });

@@ -7,9 +7,13 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 Route::get('/', function () {
-    return redirect()->route("auth.login");
+    return redirect()->route("login");
     // $role = Role::create(['name' => 'admin']); #user
     // $permission = Permission::creat(['name' => 'admin']) #user
+});
+
+Route::controller(DashboardController::class)->group(function() {
+    Route::any('/admin-login', 'admin_login')->name('admin.login');
 });
 
 Route::get('/dashboard', function () {

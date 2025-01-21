@@ -13,7 +13,7 @@
                     @if( Session::has('msg') )
                         <p class="text-danger text-center">{{ Session::get('msg') }}</p>
                     @endif
-                    <form action="" method="POST">
+                    <form action="{{ route('admin.login') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label class="mb-1"><strong>Email</strong></label>

@@ -17,7 +17,7 @@ Route::controller(DashboardController::class)->group(function() {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard.master');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

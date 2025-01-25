@@ -1,6 +1,5 @@
 @extends('dashboard.master')
 
-
 @section('title')
     Add New Brand
 @endsection
@@ -22,7 +21,8 @@
                             <p class="text-danger text-center">{{ Session::get('msg') }}</p>
                             @endif
 
-                            <form action="{{ route('store.brand') }}" method="POST" enctype="multipart/form-data">
+                            {{-- <form action="{{ route('store.brand') }}" method="POST" enctype="multipart/form-data"> --}}
+                            <form action="#" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="name">Brand Name</label>

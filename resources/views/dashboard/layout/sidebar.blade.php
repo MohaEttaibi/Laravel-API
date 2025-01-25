@@ -19,8 +19,8 @@
                     <span class="nav-text">Brands</span>
                 </a>
                 <ul aria-expanded="false">
-                    {{-- <li><a href="{{ route('view.brand') }}">View</a></li> --}}
-                    {{-- <li><a href="{{ route('add.brand') }}">Add Brand</a></li> --}}
+                    <li><a href="{{ route('view.brand') }}">View Brands</a></li>
+                    <li><a href="{{ route('add.brand') }}">Add Brand</a></li>
                 
                 </ul>
             </li>

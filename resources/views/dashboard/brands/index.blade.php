@@ -18,7 +18,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                     <li class="breadcrumb-item active"><a>Brands</a></li>
-                </ol>
+                </ol> 
             </div>
         </div>
         <!-- row -->
@@ -41,9 +41,7 @@
                                 </thead>
                                 <tbody>
 
-                                    {{-- @foreach ($data as $val)
-                                        
-                                   
+                                    @foreach ($data as $val)
                                     <tr>
                                         <td><strong>{{ $val->id }}</strong></td>
                                         <td>{{ $val->name }}</td>
@@ -60,7 +58,7 @@
                                         </td>
 
                                     </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                   
                                 </tbody>
                             </table>

@@ -12,10 +12,6 @@ class BrandController extends Controller
         return view('dashboard.brands.add');
     }
 
-    public function view_brand(){
-        return view('dashboard.brands.index');
-    }
-
     public function store_brand(Request $request){
         // return $request->all();
         $validated = $request->validate([
@@ -45,5 +41,18 @@ class BrandController extends Controller
         } else {
             return redirect()->back()->with('msg', 'Brand Not Added.');
         }
+    }
+
+    public function view_brand(){
+        $data = Brand::latest()->paginate(10);
+        return view('dashboard.brands.index', compact('data'));
+    }
+
+    public function edit_brand() {
+        //
+    }
+
+    public function delete_brand() {
+        //
     }
 }

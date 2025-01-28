@@ -11,6 +11,7 @@ use App\Mail\ForgetPassword;
 use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Brand;
 
 class DashboardController extends Controller
 {
@@ -74,5 +75,10 @@ class DashboardController extends Controller
             'password' => $password
         ]);
         return redirect()->back()->with('msg', 'Password is updated.');
+    }
+
+    public function dashboard(){
+        $brand = Brand::count('id');
+        return view('dashboard', compact('brand'));
     }
 }

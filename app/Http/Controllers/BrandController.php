@@ -48,8 +48,37 @@ class BrandController extends Controller
         return view('dashboard.brands.index', compact('data'));
     }
 
-    public function edit_brand() {
-        //
+    public function edit_brand($id) {
+        $data = Brand::findOrFail($id);
+        return view("dashboard.brands.edit", compact('data'));
+    }
+
+    public function update_brand(Request $request) {
+        $validated = $request->validate([
+            'name' => 'required|unique:brands'
+        ], [
+            'name.required' => 'Brand name is required',
+            'name.unique' => 'Name is taken'
+        ]);
+
+        $id = $request->id; 
+        $name = strip_tags($request->name);
+        $data = Brand::where('id', '=', $id)->first();
+        $data->name = $name;
+        if($request->hasFile('img')) {
+            unlink($data->img);
+            $img = $request->file('img');
+            $gen = hexdec(uniqid());
+            $ex = strtolower($img->getClientOriginalExtension());
+            $name = $gen . '.' . $ex;
+            $location = 'brand/';
+            $source = $location . $name;
+            $img->move($location, $name);
+            $data->$img = $source;
+        }
+        $data->save();
+        return redirect()->back()->with('msg', 'Brand updated.');
+        // return $request->all();
     }
 
     public function delete_brand() {

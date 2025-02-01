@@ -20,7 +20,7 @@ Route::controller(BrandController::class)->group(function() {
         Route::any('/store-brand', 'store_brand')->name('store.brand');
         Route::get('/edit-brand/{id}', 'edit_brand')->name('edit.brand');
         Route::any('/update-brand', 'update_brand')->name('update.brand');
-        Route::any('/delete-brand', 'delete_brand')->name('delete.brand');
+        Route::any('/delete-brand/{id}', 'delete_brand')->name('delete.brand');
     });
 });
 

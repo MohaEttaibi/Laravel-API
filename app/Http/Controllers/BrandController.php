@@ -81,7 +81,10 @@ class BrandController extends Controller
         // return $request->all();
     }
 
-    public function delete_brand() {
-        //
+    public function delete_brand($id) {
+        $brand = Brand::findOrFail($id);
+        unlink($brand->img);
+        $brand->delete();
+        return redirect()->back();
     }
 }

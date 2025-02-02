@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -21,6 +22,13 @@ Route::controller(BrandController::class)->group(function() {
         Route::get('/edit-brand/{id}', 'edit_brand')->name('edit.brand');
         Route::any('/update-brand', 'update_brand')->name('update.brand');
         Route::any('/delete-brand/{id}', 'delete_brand')->name('delete.brand');
+        Route::get('/add-product', 'add_product')->name('add.product');
+    });
+});
+
+Route::controller(ProductController::class)->group(function() {
+    Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+        Route::get('/add-product', 'add_product')->name('add.product');
     });
 });
 

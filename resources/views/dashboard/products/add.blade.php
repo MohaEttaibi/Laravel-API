@@ -20,8 +20,7 @@
                             @if( Session::has('msg') )
                             <p class="text-danger text-center">{{ Session::get('msg') }}</p>
                             @endif
-                            <form action="" method="POST" enctype="multipart/form-data">
-                            {{-- <form action="{{ route('store.product') }}" method="POST" enctype="multipart/form-data"> --}}
+                            <form action="{{ route('store.product') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="name">Product Name</label>
@@ -53,13 +52,10 @@
                                         <span>{{ $message }}</span>
                                     @enderror
                                 </div>
-
-
-
                                 <div class="form-group">
                                     <label for="avalibale">Product Avalibale</label>
                                     <select name="avalibale" id="avalibale" class="form-control">
-                                        <option value="" selected style="color:#000">Plz Select Product Stock</option>
+                                        <option value="" selected style="color:#000">Select Product Stock</option>
                                         <option value="1" style="color:#000">in stock</option>
                                         <option value="2" style="color:#000">out of stock</option>
                                     </select>
@@ -67,8 +63,6 @@
                                         <span>{{ $message }}</span>
                                     @enderror
                                 </div>
-
-
                                 <div class="form-group">
                                     <label for="img">Brand Image</label>
                                     <input type="file" name="img" class="form-control input-rounded" id="img" placeholder="input-rounded">
@@ -88,9 +82,6 @@
                     </div>
                 </div>
             </div>
-
-           
-         
         </div>
     </div>
 </div>

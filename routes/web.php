@@ -29,6 +29,7 @@ Route::controller(BrandController::class)->group(function() {
 Route::controller(ProductController::class)->group(function() {
     Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
         Route::get('/add-product', 'add_product')->name('add.product');
+        Route::any('/store-product', 'store_product')->name('store.product');
     });
 });
 

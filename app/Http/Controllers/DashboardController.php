@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Brand;
+use App\Models\Product;
 
 class DashboardController extends Controller
 {
@@ -79,6 +80,7 @@ class DashboardController extends Controller
 
     public function dashboard(){
         $brand = Brand::count('id');
-        return view('dashboard', compact('brand'));
+        $productInStock = Product::where('available', '=', 1)->count('id');
+        return view('dashboard', compact('brand', 'productInStock'));
     }
 }

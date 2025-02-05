@@ -31,7 +31,7 @@
                     <span class="nav-text">Products</span>
                 </a>
                 <ul aria-expanded="false">
-                    {{-- <li><a href="{{ route('view.products') }}">View</a></li> --}}
+                    <li><a href="{{ route('view.product') }}">View Products</a></li>
                     <li><a href="{{ route('add.product') }}">Add Product</a></li>
                    
                 </ul>

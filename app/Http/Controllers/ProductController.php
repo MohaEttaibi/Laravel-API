@@ -14,6 +14,11 @@ class ProductController extends Controller
         return view('dashboard.products.add', compact('brand'));
     }
 
+    public function view_product(){
+        $data = Product::latest()->paginate(9);
+        return view('dashboard.products.view', compact('data'));
+    }
+
     public function store_product(Request $request){
         if($request->isMethod('post')){
             $validated = $request->validate([

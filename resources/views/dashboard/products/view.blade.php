@@ -52,7 +52,7 @@
                                             <td>{{ $val->price}} USD</td>
                                             {{-- <td>{{ $brand->name }}</td> --}}
                                             <td>
-                                                @if($val->available == 1)
+                                                @if($val->av == 1)
                                                 <span class="badge light badge-success">In Stock</span>
                                                 @else 
                                                 <span class="badge light badge-danger">Out Stock</span>
@@ -67,8 +67,8 @@
                                                         <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        {{-- <a class="dropdown-item" href="{{ route('edit.product', ['id' => $val->id]) }}">Edit</a>
-                                                        <a class="dropdown-item" href="{{ route('delete.product', ['id' => $val->id]) }}">Delete</a> --}}
+                                                        <a class="dropdown-item" href="{{ route('edit.product', ['id' => $val->id]) }}">Edit</a>
+                                                        {{-- <a class="dropdown-item" href="{{ route('delete.product', ['id' => $val->id]) }}">Delete</a> --}}
                                                     </div>
                                                 </div>
                                             </td>

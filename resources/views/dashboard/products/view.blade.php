@@ -68,7 +68,7 @@
                                                     </button>
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" href="{{ route('edit.product', ['id' => $val->id]) }}">Edit</a>
-                                                        {{-- <a class="dropdown-item" href="{{ route('delete.product', ['id' => $val->id]) }}">Delete</a> --}}
+                                                        <a class="dropdown-item" href="{{ route('delete.product', ['id' => $val->id]) }}">Delete</a>
                                                     </div>
                                                 </div>
                                             </td>

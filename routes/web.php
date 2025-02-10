@@ -22,7 +22,6 @@ Route::controller(BrandController::class)->group(function() {
         Route::get('/edit-brand/{id}', 'edit_brand')->name('edit.brand');
         Route::any('/update-brand', 'update_brand')->name('update.brand');
         Route::any('/delete-brand/{id}', 'delete_brand')->name('delete.brand');
-        Route::get('/add-product', 'add_product')->name('add.product');
     });
 });
 
@@ -31,8 +30,9 @@ Route::controller(ProductController::class)->group(function() {
         Route::get('/add-product', 'add_product')->name('add.product');
         Route::get('/view-product', 'view_product')->name('view.product');
         Route::any('/store-product', 'store_product')->name('store.product');
-        Route::get('/edit-product', 'edit_product')->name('edit.product');
+        Route::get('/edit-product/{id}', 'edit_product')->name('edit.product');
         Route::any('/update-product', 'update_product')->name('update.product');
+        Route::get('/delete-product/{id}', 'delete_product')->name('delete.product');
     });
 });
 

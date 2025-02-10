@@ -16,7 +16,7 @@
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('view.products') }}">Products</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('view.product') }}">Products</a></li>
                     <li class="breadcrumb-item active"><a>Edit</a></li>
                 </ol>
             </div>

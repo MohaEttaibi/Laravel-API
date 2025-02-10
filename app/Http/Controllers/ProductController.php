@@ -116,4 +116,11 @@ class ProductController extends Controller
             return redirect()->route('login');
         }
     }
+
+    public function delete_product($id) {
+        $data = Product::findOrFail($id);
+        unlink($data->img);
+        $data->delete();
+        return redirect()->back()->with("msg", "Product Deleted");
+    }
 }

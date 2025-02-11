@@ -19,48 +19,41 @@ class ProductController extends Controller
         return view('dashboard.products.view', compact('data'));
     }
 
-    public function store_product(Request $request){
-        if($request->isMethod('post')){
-            $validated = $request->validate([
-                'pro_name'=>'required|unique:products|max:255',
-                'price'=>'required',
-                'brand'=>'required',
-                'available'=>'required',
-                'img'=>'required'
-            ], [
-                'pro_name.required' => 'Product name is required',
-                'price.unique' => 'Price is required',
-                'brand.required' => 'Brand is required',
-                'available.required' => 'Product stock is required',
-                'img.required' => 'Product image is required',
-            ]);
+    public function store_product(Request $request) {
 
-            $pro_name = strip_tags($request->name);
-            $price = strip_tags($request->price);
-            $brand = strip_tags($request->brand);
-            $available = strip_tags($request->available);
+        if($request->isMethod('post')) {
+            $validated = $request->validate([
+                'pro_name'      => 'required|unique:products|max:255',
+                'price'         => 'required',
+                'brand'         => 'required',
+                'available'     => 'required',
+                'img'           => 'required'
+            ]);
+            $pro_name   = strip_tags($request->pro_name);
+            $price      = strip_tags($request->price);
+            $brand      = strip_tags($request->brand);
+            $available  = strip_tags($request->available);
             $img = $request->file('img');
-            $gen = hexdec(uniqid());
-            $ex = strtolower($img->getClientOriginalExtension());
-            $name = $gen . '.' . $ex;
-            $location = 'product/';
-            $source = $location . $name;
+            $gen        = hexdec(uniqid());
+            $ex         = strtolower($img->getClientOriginalExtension());
+            $name       = $gen . '.' . $ex;
+            $location   = 'product/';
+            $source     = $location . $name;
             $img->move($location, $name);
             $data = Product::insert([
-                'pro_name' => $pro_name,
-                'price' => $price,
-                'brand' => $brand,
-                'available' => $available,
-                'img' => $source,
-                'created_at' => Carbon::now()
-            ]);
+                'pro_name'      => $pro_name,
+                'price'         => $price,
+                'brand'         => $brand,
+                'img'           => $source,
+                'available'     => $available,
+                'created_at'    => Carbon::now()
 
+            ]);
             if($data == true) {
-                return redirect()->back()->with('msg', 'Product addedd successfuly.');
+                return redirect()->back()->with('msg', 'Product Add Success');
             } else {
-                return redirect()->back()->with('msg', 'Product not addedd');
+                return redirect()->back()->with('msg', 'Product Not Add Success');
             }
-            return $request->all();
         } else {
             return redirect()->route('login');
         }

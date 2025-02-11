@@ -57,7 +57,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <select name="avalibale" id="" class="form-control">
+                                    <select name="available" id="" class="form-control">
                                         <option value="" style="color: #000" selected>Please Select Product avalibale</option>
                                         <option value="1" style="color: #000">In Stock</option>
                                         <option value="0" style="color: #000">Out Stock</option>

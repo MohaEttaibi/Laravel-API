@@ -50,9 +50,9 @@
                                             <td><strong>{{ $val->id }}</strong></td>
                                             <td>{{ $val->pro_name }}</td>
                                             <td>{{ $val->price}} USD</td>
-                                            {{-- <td>{{ $brand->name }}</td> --}}
+                                            <td>{{ $brand->name }}</td>
                                             <td>
-                                                @if($val->av == 1)
+                                                @if($val->available == 1)
                                                 <span class="badge light badge-success">In Stock</span>
                                                 @else 
                                                 <span class="badge light badge-danger">Out Stock</span>

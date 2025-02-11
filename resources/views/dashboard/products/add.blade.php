@@ -53,13 +53,13 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="avalibale">Product Avalibale</label>
-                                    <select name="avalibale" id="avalibale" class="form-control">
+                                    <label for="available">Product available</label>
+                                    <select name="available" id="available" class="form-control">
                                         <option value="" selected style="color:#000">Select Product Stock</option>
                                         <option value="1" style="color:#000">in stock</option>
                                         <option value="2" style="color:#000">out of stock</option>
                                     </select>
-                                    @error('avalibale')
+                                    @error('available')
                                         <span>{{ $message }}</span>
                                     @enderror
                                 </div>

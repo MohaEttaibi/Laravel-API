@@ -33,6 +33,7 @@ class ProductController extends Controller
             $price      = strip_tags($request->price);
             $brand      = strip_tags($request->brand);
             $available  = strip_tags($request->available);
+            $details    = strip_tags($request->details);
             $img = $request->file('img');
             $gen        = hexdec(uniqid());
             $ex         = strtolower($img->getClientOriginalExtension());
@@ -46,6 +47,7 @@ class ProductController extends Controller
                 'brand'         => $brand,
                 'img'           => $source,
                 'available'     => $available,
+                'details'       => $details,
                 'created_at'    => Carbon::now()
 
             ]);
@@ -72,19 +74,21 @@ class ProductController extends Controller
                 'pro_name'=>'required|max:255',
                 'price'=>'required',
                 'brand'=>'required',
-                'available'=>'required'
+                'available'=>'required',
+                'details'=>'required'
             ], [
                 'pro_name.required' => 'Product name is required',
                 'price.unique' => 'Price is required',
                 'brand.required' => 'Brand is required',
-                'available.required' => 'Product stock is required'
+                'available.required' => 'Product stock is required',
+                'details.required' => 'Details is required'
             ]);
 
             $pro_name = strip_tags($request->name);
             $price = strip_tags($request->price);
             $brand = strip_tags($request->brand);
             $available = strip_tags($request->available);
-
+            $details    = strip_tags($request->details);
             $id = $request->id;
             $product = Product::findOrFail($id);
 
@@ -103,6 +107,7 @@ class ProductController extends Controller
             $product->price = $price;
             $product->brand = $brand;
             $product->available = $available;
+            $product->details = $details;
             $product->save();
             return redirect()->back()->with('msg', 'Product updated.');
         } else {

@@ -41,7 +41,6 @@ Route::controller(DashboardController::class)->group(function() {
     Route::any('/admin-forgot-password', 'admin_forgot_password')->name('admin.forgot.password');
     Route::get('/admin-reset-password/{id}', 'admin_reset_password')->name('admin.reset.password');
     Route::any('/admin-update-password', 'admin_update_password')->name('admin.update.password');
-
     Route::middleware(['auth', 'verified', 'role:admin'])->group(function(){
         Route::get('/dashboard', 'dashboard')->name('dashboard');
     });

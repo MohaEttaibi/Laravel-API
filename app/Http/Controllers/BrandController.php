@@ -37,7 +37,7 @@ class BrandController extends Controller
             'created_at' => Carbon::now()
         ]);
         if ($brand == true){
-            return redirect()->back()-with('msg', 'Brand Added Successfuly.');
+            return redirect()->back()->with('msg', 'Brand Added Successfuly.');
         } else {
             return redirect()->back()->with('msg', 'Brand Not Added.');
         }

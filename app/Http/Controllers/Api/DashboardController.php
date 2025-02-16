@@ -59,4 +59,22 @@ class DashboardController extends Controller
             'product' => $data,
         ], 200);
     }
+
+    public function filters_by_brand($brand, $filter) {
+        $brand = Brand::findOrFail($brand);
+        if ($filter == 'low') {
+            $data = Product::where('brand', '=', $brand)->orderBy('price', 'asc')->get();
+        } else if ($filter == 'high') {
+            $data = Product::where('brand', '=', $brand)->orderBy('price', 'desc')->get();
+        } else if ($filter == 'new') {
+            $data = Product::where('brand', '=', $brand)->latest()->get();
+        } else if ($filter == 'old') {
+            $data = Product::where('brand', '=', $brand)->all()->get();
+        }
+        return response()->json([
+            'status' => true,
+            'message' => 'Filters By Brand',
+            'product' => "Brand is $brand, Filter is $data",
+        ], 200);
+    }
 }

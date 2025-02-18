@@ -15,6 +15,7 @@ Route::controller(DashboardController::class)->group(function() {
     Route::get('products-view/{id}', 'products_view');
     Route::get('filters/{filter}', 'filters');
     Route::get('filters/{brand}/{filter}', 'filters_by_brand');
+    Route::get('add-favorite/{product_id}', 'add_favorite')->middleware('auth:sanctum');
 });
 
 Route::controller(AuthCotroller::class)->group(function () {

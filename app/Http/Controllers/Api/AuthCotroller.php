@@ -13,7 +13,7 @@ class AuthCotroller extends Controller
     public function register(Request $request) {
         $data = $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => 'required'
         ]);
         $name = strip_tags($data['name']);

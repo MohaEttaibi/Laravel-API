@@ -17,7 +17,7 @@ Route::controller(DashboardController::class)->group(function() {
     Route::get('filters/{brand}/{filter}', 'filters_by_brand');
     Route::get('add-favorite/{product_id}', 'add_favorite')->middleware('auth:sanctum');
     Route::get('fetch-favorite', 'fetch_favorite')->middleware('auth:sanctum');
-    Route::get('favorite-remove/{id}', 'favorite-remove')->middleware('auth:sanctum');
+    Route::get('favorite-remove/{id}', 'remove_favorite')->middleware('auth:sanctum');
 });
 
 Route::controller(AuthCotroller::class)->group(function () {

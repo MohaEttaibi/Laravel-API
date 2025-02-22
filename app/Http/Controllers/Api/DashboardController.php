@@ -118,7 +118,23 @@ class DashboardController extends Controller
         ], 200);
     }
 
-    public function favorite_remove ($product_id) {
-        
+    public function remove_favorite ($id) {
+        $user = auth('sanctum')->user();
+        $data = Favorite::where([
+            ['user_id', '=', $user->id],
+            ['product_id', '=', $id],
+        ])->delete();
+        if ($data == true) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Item Removed',
+                'data' => $data,
+            ]);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => 'Error, item can\'t be removed',
+            ]);    
+        }   
     }
 }

@@ -32,4 +32,49 @@ class AuthCotroller extends Controller
             'data' => $user->createToken($email)->plainTextToken
         ]);
     }
+
+    public function login(Request $request) {
+        if($request->isMethod('post')){
+            $data = $request->validate([
+                'email' => 'required|email',
+                'password' => 'required'
+            ]);
+            $email = strip_tags($data['email']);
+            $password = strip_tags($data['password']);
+            $user = User::where('email', $email)->first();
+            if(isset($user)) {
+                $check = Hash::check($password, $user->password);
+               if ($check == true) {
+                    return response()->json([
+                        'status' => true,
+                        'message' => 'Login',
+                        'data' => $user->createToken($email)->plainTextToken
+                    ], 200);
+               } else {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Paasword Not Found',
+                        'data' => null
+                    ], 200);
+               }
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Email Not Found',
+                    'data' => null
+                ], 200);
+            }
+            return response()->json([
+                'status' => true,
+                'message' => 'Login',
+                'data' => $request->all()
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => 'Login Failed',
+                'data' => null
+            ], 404);
+        }
+    }
 }

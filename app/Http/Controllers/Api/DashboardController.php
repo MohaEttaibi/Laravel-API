@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Favorite;
+use App\Models\Cart;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -136,5 +137,46 @@ class DashboardController extends Controller
                 'message' => 'Error, item can\'t be removed',
             ]);    
         }   
+    }
+
+    public function add_cart (Request $request) {
+        if($request->isMethod('post')) {
+            $data = $request->validate([
+                'product' => 'required',
+                'price'     => 'required',
+                'quantity'  => 'required'
+            ]);          
+            $user = auth('sanctum')->user();
+            $product = strip_tags($data['product']);
+            $price = strip_tags($data['price']);
+            $quantity = strip_tags($data['quantity']);
+            $check = Cart::where([
+                ['user_id', '=', $user->id],
+                ['product', '=', $product]
+            ])->first();
+            if(isset($check)){
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Product was added to cart.',
+                ], 200);
+            } else {
+                $data = Cart::insert([
+                    'user_id' => $user->id,
+                    'product' => $product,
+                    'price' => $price,
+                    'quantity' => $quantity,
+                    'created_at' => Carbon::now()
+                ]);
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Already Added to cart.',
+                ], 200);
+            }
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Not Found',
+            ], 404);
+        }
     }
 }

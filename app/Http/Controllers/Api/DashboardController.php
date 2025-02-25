@@ -157,7 +157,7 @@ class DashboardController extends Controller
             if(isset($check)){
                 return response()->json([
                     'status' => true,
-                    'message' => 'Product was added to cart.',
+                    'message' => 'Already Added to cart.',
                 ], 200);
             } else {
                 $data = Cart::insert([
@@ -169,7 +169,7 @@ class DashboardController extends Controller
                 ]);
                 return response()->json([
                     'status' => true,
-                    'message' => 'Already Added to cart.',
+                    'message' => 'Product was added to cart.',
                 ], 200);
             }
         } else {
@@ -178,5 +178,20 @@ class DashboardController extends Controller
                 'message' => 'Not Found',
             ], 404);
         }
+    }
+
+    public function cart () {
+        $user = auth('sanctum')->user();
+        $data = DB::table('carts')
+        ->where('user_id', '=', $user->id)
+        ->join('products', 'carts.product', 'products.id')
+        ->select('carts.id', 'carts.price', 'carts.quantity', 'carts.created_at', 'products.pro_name', 'products.img')
+        ->latest()
+        ->paginate(10);
+        return response()->json([
+            'status' => true,
+            'message' => 'Get All Carts',
+            'user' => $data
+        ], 200);
     }
 }

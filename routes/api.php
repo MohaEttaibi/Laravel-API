@@ -20,6 +20,7 @@ Route::controller(DashboardController::class)->group(function() {
     Route::get('favorite-remove/{id}', 'remove_favorite')->middleware('auth:sanctum');
     Route::any('add-cart', 'add_cart')->middleware('auth:sanctum');
     Route::get('cart', 'cart')->middleware('auth:sanctum');
+    Route::get('cart-remove/{id}', 'remove_cart')->middleware('auth:sanctum');
 });
 
 Route::controller(AuthCotroller::class)->group(function () {

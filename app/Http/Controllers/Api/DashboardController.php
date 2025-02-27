@@ -185,7 +185,7 @@ class DashboardController extends Controller
         $data = DB::table('carts')
         ->where('user_id', '=', $user->id)
         ->join('products', 'carts.product', 'products.id')
-        ->select('carts.id', 'carts.price', 'carts.quantity', 'carts.created_at','products.id', 'products.pro_name', 'products.img')
+        ->select('carts.id', 'carts.price', 'carts.quantity', 'carts.created_at', 'products.pro_name', 'products.img')
         ->latest()
         ->paginate(10);
         return response()->json([
@@ -214,5 +214,14 @@ class DashboardController extends Controller
                 'message' => 'Product not dound in cart',
             ], 404);
         }
+    }
+
+    public function remove_cart_all() {
+        $user = auth('sanctum')->user();
+        $data = Cart::where('user_id', '=', $user->id)->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'all products removed from cart'
+        ], 200);
     }
 }

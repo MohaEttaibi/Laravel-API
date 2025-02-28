@@ -219,9 +219,29 @@ class DashboardController extends Controller
     public function remove_cart_all() {
         $user = auth('sanctum')->user();
         $data = Cart::where('user_id', '=', $user->id)->delete();
+        if($data > 0) {
+            return response()->json([
+                'status' => true,
+                'message' => 'all products removed from cart'
+            ], 200);
+        }
         return response()->json([
             'status' => true,
-            'message' => 'all products removed from cart'
-        ], 200);
+            'message' => 'No products found in your cart'
+        ], 404);
+    }
+
+    public function phone_verify(Request $request) {
+        if($request->isMethod('post')) {
+            $data = $request->validate([
+                'phone' => 'required|numeric'
+            ]);
+            return response()->json($request->all());
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => 'phone not found'
+            ], 404);
+        }
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Favorite;
 use App\Models\Cart;
+use App\Models\PhoneVerify;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -236,7 +237,41 @@ class DashboardController extends Controller
             $data = $request->validate([
                 'phone' => 'required|numeric'
             ]);
-            return response()->json($request->all());
+            $user  = auth('sanctum')->user();
+            $phone = substr($data['phone'], 1);
+        
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, 'https://api.authentica.sa/api/sdk/v1/sendOTP');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Accept: application/json',
+                'X-Authorization: ',
+                'Content-Type: application/json',
+            ]);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, "{\n    \"phone\":\"+212$phone\",\n    \"method\":\"sms\",\n    \"sender_name\": \"\",\n    \"number_of_digits\": 4,\n    \"otp_format\": \"numeric\",\n    \"is_fallback_on\": 0 \n}");
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+            $response = curl_exec($ch);
+            curl_close($ch);
+            $res = json_decode($response, true);
+            return response()->json($res);
+            if($res["success"] == true) { 
+                PhoneVerify::where('user_id', '=', $user->id)->delete();
+                PhoneVerify::insert([
+                    'user_id'   => $user->id,
+                    'phone'     => $data['phone'],
+                    'created_at'    => Carbon::now()
+                ]);
+                return response()->json([
+                    'status'    => true,
+                    'message'   => 'The OTP Sent To Your Phone Number',
+                ], 200);
+            } else {
+                return response()->json([
+                    'status'    => False,
+                    'message'   => 'There is Wrong Plz Try Again',
+                ], 200);
+            }
         } else {
             return response()->json([
                 'status' => true,

@@ -77,4 +77,14 @@ class AuthCotroller extends Controller
             ], 404);
         }
     }
+
+    public function logout() {
+        $user = auth('sanctum')->user();
+        $user->tokens()->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'You Logged out',
+            'data' => null
+        ], 200);
+    }
 }

@@ -28,4 +28,5 @@ Route::controller(DashboardController::class)->group(function() {
 Route::controller(AuthCotroller::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
+    Route::post('/logout', 'logout');
 });

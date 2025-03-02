@@ -13,6 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Brand;
 use App\Models\Product;
+use Illuminate\Support\Facades\Session;
 
 class DashboardController extends Controller
 {
@@ -82,5 +83,11 @@ class DashboardController extends Controller
         $brand = Brand::count('id');
         $productInStock = Product::where('available', '=', 1)->count('id');
         return view('dashboard', compact('brand', 'productInStock'));
+    }
+
+    public function admin_logout() {
+        Auth::logout();
+        Session::flush();
+        return redirect()->route('login');
     }
 }

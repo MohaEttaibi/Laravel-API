@@ -120,6 +120,11 @@
                     <li><a href="./page-lock-screen.html">Lock Screen</a></li>
                 </ul>
             </li>
+            <li><a class="ai-icon" href="{{ route('admin.logout') }}" aria-expanded="false">
+                <i class="flaticon-383-settings-2"></i>
+                <span class="nav-text">Logout</span>
+                </a>
+            </li>
         </ul>
         <div class="copyright">
             <p><strong>Zenix Crypto Admin Dashboard</strong> © 2021 All Rights Reserved</p>

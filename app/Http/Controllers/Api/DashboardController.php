@@ -246,10 +246,10 @@ class DashboardController extends Controller
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
             curl_setopt($ch, CURLOPT_HTTPHEADER, [
                 'Accept: application/json',
-                'X-Authorization: ',
+                'X-Authorization: $2y$10$FtJC93GNzLOvDW5zbWn2eer.qVQURhK29wIzsQbc38J/fy1C4Q5L6',
                 'Content-Type: application/json',
             ]);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, "{\n    \"phone\":\"+212$phone\",\n    \"method\":\"sms\",\n    \"sender_name\": \"\",\n    \"number_of_digits\": 4,\n    \"otp_format\": \"numeric\",\n    \"is_fallback_on\": 0 \n}");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, "{\n    \"phone\":\"+966$phone\",\n    \"method\":\"sms\",\n    \"sender_name\": \"\",\n    \"number_of_digits\": 4,\n    \"otp_format\": \"numeric\",\n    \"is_fallback_on\": 0 \n}");
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
             $response = curl_exec($ch);
             curl_close($ch);
@@ -269,7 +269,7 @@ class DashboardController extends Controller
             } else {
                 return response()->json([
                     'status'    => False,
-                    'message'   => 'There is Wrong Plz Try Again',
+                    'message'   => 'There is Wrong Please Try Again',
                 ], 200);
             }
         } else {

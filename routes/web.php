@@ -43,6 +43,7 @@ Route::controller(DashboardController::class)->group(function() {
     Route::any('/admin-update-password', 'admin_update_password')->name('admin.update.password');
     Route::middleware(['auth', 'verified', 'role:admin'])->group(function(){
         Route::get('/dashboard', 'dashboard')->name('dashboard');
+        Route::get('/admin/logout', 'admin_logout')->name('admin.logout');
     });
 });
 

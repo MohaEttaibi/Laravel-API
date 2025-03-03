@@ -23,6 +23,7 @@ Route::controller(DashboardController::class)->group(function() {
     Route::get('cart-remove/{id}', 'remove_cart')->middleware('auth:sanctum');
     Route::get('cart-remove-all', 'remove_cart_all')->middleware('auth:sanctum');
     Route::any('/phone-verify', 'phone_verify')->middleware('auth:sanctum');
+    Route::any('/otp-verify', 'otp_verify');
 });
 
 Route::controller(AuthCotroller::class)->group(function () {

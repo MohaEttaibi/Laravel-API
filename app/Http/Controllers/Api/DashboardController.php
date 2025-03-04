@@ -232,6 +232,22 @@ class DashboardController extends Controller
         ], 404);
     }
 
+    public function create_orders() {
+        $user = auth('sanctum')->user();
+        $cart = Cart::where('user_id', '=', $user->id)->get();
+        if(count($cart) > 0 ) {
+            return response()->json([
+                'status' => true,
+                'cart' => $cart
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => 'No product in your cart',
+            ], 200);
+        }
+    }
+
     public function phone_verify(Request $request) {
         if($request->isMethod('post')) {
             $data = $request->validate([

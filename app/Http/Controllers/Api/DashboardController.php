@@ -8,6 +8,7 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Favorite;
 use App\Models\Cart;
+use App\Models\Orders;
 use App\Models\PhoneVerify;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -236,9 +237,48 @@ class DashboardController extends Controller
         $user = auth('sanctum')->user();
         $cart = Cart::where('user_id', '=', $user->id)->get();
         if(count($cart) > 0 ) {
+            foreach($cart as $val) {
+                Orders::insert([
+                    'user_id' => $user->id,
+                    'product_id' => $val->product,
+                    'quantity' => $val->quantity,
+                    'price' => $val->price,
+                ]);
+            }
+
+            $orders_price = Orders::where([
+                ['user_id', '=', $user->id],
+                ['status', '=', false]
+                
+            ])->sum('price');
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, 'https://secure.telr.com/gateway/order.json');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/json',
+                'accept: application/json',
+            ]);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, "\n{\n  \"method\": \"create\",\n  \"store\": 31741,\n  \"authkey\": \"s7LxB-bpxh@26NM7\",\n  \"framed\": 1,\n  \"order\": {\n    \"cartid\": \"$user->id\",\n    \"test\": \"1\",\n    \"amount\": \"$orders_price\",\n    \"currency\": \"SAR\",\n    \"description\": \"My purchase\"\n  },\n  \"return\": {\n    \"authorised\": \"http://127.0.0.1:8000/api/authorised/$user->id\",\n    \"declined\": \"http://127.0.0.1:8000/api/declined/$user->id\",\n    \"cancelled\": \"http://127.0.0.1:8000/api/cancelled/$user->id\"\n  }\n}\n");
+
+            $response = curl_exec($ch);
+            curl_close($ch);
+
+            $result = json_decode($response, true);
+            
+            $url = $result['order']['url'];
+            $ref = $result['order']['ref'];
+
+            Orders::where([
+                ['user_id', '=', $user->id],
+                ['status', '=', false]
+            ])->update([
+                'ref'   => $ref
+            ]);
             return response()->json([
                 'status' => true,
-                'cart' => $cart
+                'order_url' => $url,
             ], 200);
         } else {
             return response()->json([
@@ -246,6 +286,18 @@ class DashboardController extends Controller
                 'message' => 'No product in your cart',
             ], 200);
         }
+    }
+
+    public function authorized($id) {
+        return $id;
+    }
+
+    public function declined($id) {
+        return $id;
+    }
+
+    public function cancelled($id) {
+        return $id;
     }
 
     public function phone_verify(Request $request) {

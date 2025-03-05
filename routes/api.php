@@ -25,6 +25,9 @@ Route::controller(DashboardController::class)->group(function() {
     Route::get('create-orders', 'create_orders')->middleware('auth:sanctum');
     Route::any('/phone-verify', 'phone_verify')->middleware('auth:sanctum');
     Route::any('/otp-verify', 'otp_verify');
+    Route::get('authorized/{id}', 'authorized');
+    Route::get('declined/{id}', 'declined');
+    Route::get('cancelled/{id}', 'cancelled');
 });
 
 Route::controller(AuthCotroller::class)->group(function () {

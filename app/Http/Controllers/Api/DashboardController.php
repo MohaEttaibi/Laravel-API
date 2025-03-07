@@ -326,11 +326,27 @@ class DashboardController extends Controller
     }
 
     public function declined($id) {
-        return $id;
+        Orders::where([
+            ['user_id', '=', $id],
+            ['status', '=', false]
+        ])->delete();
+        
+        return response()->json([
+            'status' => false,
+            'message' => 'Your payment not completed'
+        ], 200);
     }
 
     public function cancelled($id) {
-        return $id;
+        Orders::where([
+            ['user_id', '=', $id],
+            ['status', '=', false]
+        ])->delete();
+        
+        return response()->json([
+            'status' => false,
+            'message' => 'Your payment cancelled'
+        ], 200);
     }
 
     public function phone_verify(Request $request) {

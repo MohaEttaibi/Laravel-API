@@ -440,4 +440,21 @@ class DashboardController extends Controller
             ], 404);
         }
     }
+
+    public function orders_fetch() {
+        $user = auth('sanctum')->user();
+        $data = DB::table('orders')
+        ->where([
+            ['user_id', '=', $user->id],
+            ['status', '=', 1]
+        ])
+        ->join('products', 'orders.product_id', 'products.id')
+        ->select('orders.quantity', 'orders.price', 'products.pro_name', 'products.image', 'products.created_at')
+        ->latest()
+        ->paginate(10);
+        return response()->json([
+            'status'    => true,
+            'orders'   => $data,
+        ], 200);   
+    }
 }

@@ -28,6 +28,7 @@ Route::controller(DashboardController::class)->group(function() {
     Route::get('authorized/{id}', 'authorized');
     Route::get('declined/{id}', 'declined');
     Route::get('cancelled/{id}', 'cancelled');
+    Route::get('orders-fetch', 'orders_fetch');
 });
 
 Route::controller(AuthCotroller::class)->group(function () {

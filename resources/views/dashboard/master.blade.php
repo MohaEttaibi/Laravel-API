@@ -12,6 +12,22 @@
     <link href="{{ asset('/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/vendor/owl-carousel/owl.carousel.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
+	<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+
+	<script>
+
+		// Enable pusher logging - don't include this in production
+		Pusher.logToConsole = true;
+	
+		var pusher = new Pusher('917c476bfcead53a93d3', {
+		  cluster: 'mt1'
+		});
+	
+		var channel = pusher.subscribe('live-chat');
+		channel.bind('my-event', function(data) {
+		  alert(JSON.stringify(data));
+		});
+	  </script>
 	
 </head>
 <body>

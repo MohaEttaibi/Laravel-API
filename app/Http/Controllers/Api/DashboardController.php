@@ -457,4 +457,21 @@ class DashboardController extends Controller
             'orders'   => $data,
         ], 200);   
     }
+
+    public function live_chat(Request $request) {
+        if($request->isMethod('post')) {
+            $message = strip_tags($request->message);
+
+            require __DIR__ . '/vendor/autoload.php';
+
+            $pusher = new \Pusher\Pusher(
+            "917c476bfcead53a93d3",
+            "ae52f216f22311429ecb",
+            "832067",
+            array('cluster' => 'eu')
+            );
+
+            $pusher->trigger('live-chat', 'my-event', $message);
+        }
+    }
 }

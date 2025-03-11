@@ -29,6 +29,7 @@ Route::controller(DashboardController::class)->group(function() {
     Route::get('declined/{id}', 'declined');
     Route::get('cancelled/{id}', 'cancelled');
     Route::get('orders-fetch', 'orders_fetch');
+    Route::get('live-chat', 'live_chat');
 });
 
 Route::controller(AuthCotroller::class)->group(function () {

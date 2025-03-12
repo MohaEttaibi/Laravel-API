@@ -10,6 +10,7 @@ use App\Models\Favorite;
 use App\Models\Cart;
 use App\Models\Orders;
 use App\Models\PhoneVerify;
+use App\Models\Support;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -462,16 +463,39 @@ class DashboardController extends Controller
         if($request->isMethod('post')) {
             $message = strip_tags($request->message);
 
-            require __DIR__ . '/vendor/autoload.php';
-
             $pusher = new \Pusher\Pusher(
             "917c476bfcead53a93d3",
             "ae52f216f22311429ecb",
             "832067",
-            array('cluster' => 'eu')
+            array('cluster' => 'mt1')
             );
 
             $pusher->trigger('live-chat', 'my-event', $message);
+
+            if($pusher == true) {
+                $user = auth('sanctum')->user();
+                $check = Support::where('sender', '=', $user->id)->first();
+                if(isset($check)){
+                    $support = new Support;
+                    $support->message_no = $check->message_no;
+                    $support->sender     = $user->id;
+                    $support->message    = $message;
+                    $support->created_at = Carbon::now();
+                    $support->save();
+                } else {
+                    $randno = rand(1000, 100000);
+                    $support = new Support;
+                    $support->message_no = $randno;
+                    $support->sender     = $user->id;
+                    $support->message    = $message;
+                    $support->created_at = Carbon::now();
+                    $support->save();
+                }
+                return response()->json([
+                    'status'    => true,
+                    'message'   => 'message has been sent.',
+                ], 200);
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Brand;
+use App\Models\Support;
 use App\Models\Product;
 use Illuminate\Support\Facades\Session;
 
@@ -82,7 +83,9 @@ class DashboardController extends Controller
     public function dashboard(){
         $brand = Brand::count('id');
         $productInStock = Product::where('available', '=', 1)->count('id');
-        return view('dashboard', compact('brand', 'productInStock'));
+        $productOutStock = Product::where('available', '=', 0)->count('id');
+        // $message = Support::where('sender'. '!=', 1)->get();
+        return view('dashboard', compact('brand', 'productInStock', 'productOutStock'));
     }
 
     public function admin_logout() {
